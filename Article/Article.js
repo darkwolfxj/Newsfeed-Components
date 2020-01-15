@@ -85,6 +85,13 @@ const data = [
     thirdParagraph: `Hodor hodor - hodor... Hodor hodor hodor hodor. Hodor. Hodor! Hodor hodor, hodor hodor hodor hodor hodor; hodor hodor? Hodor!
           Hodor hodor, HODOR hodor, hodor hodor?! Hodor! Hodor hodor, HODOR hodor, hodor hodor, hodor, hodor hodor. Hodor, hodor.
           Hodor. Hodor, hodor, hodor. Hodor hodor... Hodor hodor hodor?! Hodor, hodor... Hodor hodor HODOR hodor, hodor hodor. Hodor.`
+  },
+  {
+    title:'i\'m an article', 
+    date:'someday', 
+    firstParagraph:'lol what a maroon',
+    secondParagraph:'ikr',
+    thirdParagraph:'what he said'
   }
 ];
 
@@ -99,6 +106,7 @@ const data = [
     <span class='expandButton'></span>
   </div>
 
+
   Hint: You will need to use createElement more than once here!
 
   Your function should take either an object as it's one argument, or 5 separate arguments mapping to each piece of the data object above.
@@ -112,3 +120,36 @@ const data = [
   Step 5: Add a new article to the array. Make sure it is in the same format as the others. Refresh the page to see the new article.
 
 */
+function createArticle(obj){
+  //create elements
+  let article=document.createElement('div');
+  let tit=document.createElement('h2');
+  let date=document.createElement('p');
+  date.classList.add('date');
+  let p1=document.createElement('p');
+  let p2=document.createElement('p');
+  let p3=document.createElement('p');
+  let span=document.createElement('span');
+  span.classList.add('expandButton');
+  span.textContent='Expand';
+  //text content
+  tit.textContent=obj.title;
+  date.textContent=obj.date;
+  p1.textContent=obj.firstParagraph;
+  p2.textContent=obj.secondParagraph;
+  p3.textContent=obj.thirdParagraph;
+  //append elements
+  article.append(tit,date,p1,p2,p3,span);
+  article.classList.add('article');
+
+return article;
+}
+
+//append articles
+let articles=document.querySelector('.articles');
+data.forEach(e=> articles.appendChild(createArticle(e)));
+
+//make buttons clickable
+let spans=document.querySelectorAll('span');
+spans.forEach(e=>e.addEventListener('click', ()=>{e.parentElement.classList.toggle('article-open');if (e.textContent=='Expand'){e.textContent='Collapse'}else if(e.textContent=='Collapse'){e.textContent='Expand'}}));
+
